@@ -1,0 +1,76 @@
+# DialTone.Med — marketing site
+# Cloudflare Workers with Static Assets
+# Docs: https://developers.cloudflare.com/workers/static-assets/
+#
+# Static single-page site (public/index.html). Mirrors the deployment
+# pattern used by the sibling DialTone marketing site (dialtone.menu).
+# When this Worker is first created via `wrangler deploy`, Cloudflare
+# will use the `name` below as the Worker identifier; keep this stable
+# so subsequent deploys update the same Worker rather than creating a
+# duplicate, and so any custom domain bindings remain intact.
+
+name = "dialtone-med"
+main = "worker.js"
+compatibility_date = "2026-04-20"
+compatibility_flags = []
+
+# Contact form destination. The Worker's `/api/contact` handler sends
+# validated submissions via Resend's API; messages are delivered here.
+# `hello@bytestreams.ai` is shared across the ByteStreams/DialTone
+# brands as the single monitored inbox.
+[vars]
+CONTACT_EMAIL = "hello@bytestreams.ai"
+# Identifies this site in the contact-form email From display name and
+# subject prefix (e.g. `DialTone.Med Contact: <submitter name>`), since
+# the DialTone family of sites shares one sending domain on Resend
+# (`send.bytestreams.ai`). Distinguishing by SITE_NAME keeps inbox
+# sorting clean.
+SITE_NAME = "DialTone.Med"
+
+# Required secret (not stored in this file): RESEND_API_KEY
+# The `/api/contact` handler uses this to authenticate with Resend's
+# API. Set it once per environment via:
+#
+#   npx wrangler secret put RESEND_API_KEY
+#
+# The value is encrypted at rest by Cloudflare and exposed to the
+# Worker at runtime as `env.RESEND_API_KEY`. Never commit the raw key.
+# If the secret is missing, `/api/contact` returns a user-friendly 503
+# directing submitters to email `hello@bytestreams.ai` manually.
+
+# Assets live under `./public/` so wrangler's dev-server file watcher
+# doesn't observe `.wrangler/` writes (which would cause a self-
+# triggering reload loop).
+[assets]
+directory = "./public/"
+# `binding = "ASSETS"` exposes the assets collection to the Worker as
+# `env.ASSETS`, which `worker.js` uses to proxy `/favicon.ico` to
+# `/images/favicon.svg` and to resolve unmatched paths. Without this
+# binding, `env.ASSETS` is undefined and those fallbacks 404 silently.
+binding = "ASSETS"
+# not_found_handling = "404-page" — this is a static site, not an SPA,
+# so unknown paths should return a branded /404.html (when present)
+# with a 404 status rather than rewriting to /index.html.
+not_found_handling = "404-page"
+# With `not_found_handling = "404-page"`, non-asset requests are
+# short-circuited without invoking the Worker. The Worker owns these
+# dynamic paths (robots.txt, sitemap.xml, favicon fallback to
+# /images/favicon.svg, security.txt, contact form), so force them to
+# run through the Worker first instead of being treated as missing
+# assets.
+run_worker_first = [
+  "/robots.txt",
+  "/sitemap.xml",
+  "/favicon.ico",
+  "/.well-known/*",
+  "/api/*"
+]
+
+# Keep Worker observability settings in source control so dashboard and
+# CI/CD deployments stay consistent.
+[observability.logs]
+enabled = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false

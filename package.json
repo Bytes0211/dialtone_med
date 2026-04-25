@@ -1,0 +1,13 @@
+{
+  "name": "dialtone-med",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "DialTone.Med marketing site (Cloudflare Workers with Static Assets)",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.85.0"
+  }
+}

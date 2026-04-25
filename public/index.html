@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DialTone.Med — Your Healthcare, Simplified</title>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --dt-med-blue: #0A2463;
+      --dt-signal-teal: #1B998B;
+      --dt-pulse-green: #2EC4B6;
+      --dt-care-violet: #7B61FF;
+      --dt-clinical-white: #FAFBFC;
+      --dt-soft-gray: #E8ECF1;
+      --dt-slate-gray: #6B7C93;
+      --dt-deep-charcoal: #1A1F36;
+      --dt-alert-red: #E63946;
+      --dt-radius: 8px;
+      --dt-radius-lg: 16px;
+      --dt-shadow-md: 0 4px 16px rgba(10,36,99,0.08);
+      --dt-shadow-lg: 0 8px 32px rgba(10,36,99,0.12);
+      --dt-transition: 200ms ease-in-out;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--dt-deep-charcoal);
+      background: var(--dt-clinical-white);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── EMERGENCY BANNER ── */
+    .emergency-banner {
+      background: var(--dt-alert-red);
+      color: #fff;
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .emergency-banner a {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+    .emergency-banner a:hover { text-decoration-thickness: 2px; }
+    .emergency-banner svg { vertical-align: -3px; margin-right: 6px; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,251,252,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--dt-soft-gray);
+      transition: box-shadow var(--dt-transition);
+    }
+    .navbar.scrolled { box-shadow: var(--dt-shadow-md); }
+    .navbar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dt-med-blue);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo .med { font-weight: 500; color: var(--dt-signal-teal); }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-right a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dt-slate-gray);
+      text-decoration: none;
+      transition: color var(--dt-transition);
+    }
+    .nav-right a:hover { color: var(--dt-med-blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--dt-radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--dt-transition);
+      line-height: 1.4;
+    }
+    .btn-primary { background: var(--dt-med-blue); color: #fff; }
+    .btn-primary:hover { background: #0d2d7a; transform: translateY(-1px); box-shadow: var(--dt-shadow-md); }
+    .btn-teal { background: var(--dt-signal-teal); color: #fff; }
+    .btn-teal:hover { background: #178a7d; transform: translateY(-1px); box-shadow: var(--dt-shadow-md); }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 10px; }
+    .btn-white { background: #fff; color: var(--dt-med-blue); font-weight: 700; }
+    .btn-white:hover { background: var(--dt-soft-gray); transform: translateY(-1px); }
+    .btn-outline-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -180px; right: -180px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(27,153,139,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--dt-med-blue);
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--dt-signal-teal), var(--dt-pulse-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--dt-slate-gray);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICES GRID ── */
+    .services {
+      padding: 0 24px 80px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--dt-soft-gray);
+      border-radius: var(--dt-radius-lg);
+      padding: 32px;
+      transition: all var(--dt-transition);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .service-card:hover {
+      border-color: rgba(27,153,139,0.3);
+      box-shadow: var(--dt-shadow-lg);
+      transform: translateY(-4px);
+    }
+    .service-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .service-icon.teal { background: rgba(27,153,139,0.1); color: var(--dt-signal-teal); }
+    .service-icon.blue { background: rgba(10,36,99,0.07); color: var(--dt-med-blue); }
+    .service-icon.violet { background: rgba(123,97,255,0.1); color: var(--dt-care-violet); }
+    .service-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--dt-deep-charcoal);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .service-card .subtitle {
+      font-size: 13px;
+      color: var(--dt-slate-gray);
+      font-weight: 500;
+    }
+    .service-card p {
+      font-size: 15px;
+      color: var(--dt-slate-gray);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .service-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .action-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      background: var(--dt-clinical-white);
+      border: 1px solid var(--dt-soft-gray);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dt-deep-charcoal);
+      transition: all var(--dt-transition);
+    }
+    .service-card:hover .action-tag { border-color: rgba(27,153,139,0.25); }
+    .action-tag svg { flex-shrink: 0; }
+
+    /* ── EMERGENCY CARD ── */
+    .service-card.emergency {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--dt-med-blue) 0%, #0d2d7a 100%);
+      border-color: transparent;
+      color: #fff;
+      flex-direction: row;
+      align-items: center;
+      gap: 32px;
+      padding: 36px 40px;
+      cursor: default;
+    }
+    .service-card.emergency:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(10,36,99,0.25);
+      border-color: transparent;
+    }
+    .service-card.emergency .service-icon {
+      background: rgba(230,57,70,0.2);
+      color: #fff;
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      flex-shrink: 0;
+    }
+    .emergency-content { flex-grow: 1; }
+    .service-card.emergency h3 { color: #fff; font-size: 20px; margin-bottom: 6px; }
+    .service-card.emergency p { color: rgba(255,255,255,0.7); margin-bottom: 0; font-size: 15px; }
+    .emergency-phone { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .phone-number {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transition: color var(--dt-transition);
+    }
+    .phone-number:hover { color: var(--dt-pulse-green); }
+    .phone-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+    }
+    .pulse-dot {
+      width: 12px; height: 12px;
+      background: var(--dt-alert-red);
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--dt-alert-red);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      padding: 40px 24px;
+      border-top: 1px solid var(--dt-soft-gray);
+      border-bottom: 1px solid var(--dt-soft-gray);
+      background: #fff;
+    }
+    .trust-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dt-slate-gray);
+    }
+    .trust-icon {
+      width: 32px; height: 32px;
+      background: rgba(10,36,99,0.05);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dt-med-blue);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 80px 24px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--dt-signal-teal);
+      margin-bottom: 10px;
+    }
+    .section-header h2 {
+      font-size: clamp(26px, 3.5vw, 34px);
+      font-weight: 700;
+      color: var(--dt-med-blue);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .step { text-align: center; }
+    .step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--dt-med-blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 auto 16px;
+    }
+    .step h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--dt-deep-charcoal);
+      margin-bottom: 8px;
+    }
+    .step p {
+      font-size: 14px;
+      color: var(--dt-slate-gray);
+      line-height: 1.6;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* ── CTA ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--dt-med-blue) 0%, #0d2d7a 60%, #0f3391 100%);
+      padding: 72px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(27,153,139,0.12), transparent 60%);
+      pointer-events: none;
+    }
+    .cta-inner { max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-banner h2 {
+      font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .cta-banner p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── CONTACT ── */
+    /* Brand kit refs:
+       - Section label: SignalTeal uppercase 13px (matches .section-label)
+       - H2: MedBlue, weight 700, clamp scale
+       - Form: labels above inputs, 8px radius card, SoftGray borders,
+         SignalTeal focus ring, MedBlue primary button (44px+ touch target),
+         SuccessGreen / AlertRed status colors. */
+    .contact-section {
+      padding: 80px 24px;
+      background: #fff;
+      border-top: 1px solid var(--dt-soft-gray);
+    }
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .contact-section .section-header { margin-bottom: 32px; }
+    .contact-section .section-header p {
+      margin-top: 12px;
+      font-size: 16px;
+      color: var(--dt-slate-gray);
+      line-height: 1.6;
+    }
+    .contact-card {
+      background: #fff;
+      border: 1px solid var(--dt-soft-gray);
+      border-radius: var(--dt-radius);
+      padding: 32px;
+      box-shadow: var(--dt-shadow-md);
+    }
+    .contact-form {
+      display: grid;
+      gap: 20px;
+    }
+    .form-field {
+      display: grid;
+      gap: 6px;
+    }
+    .form-field label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dt-deep-charcoal);
+    }
+    .form-field input,
+    .form-field textarea {
+      font-family: inherit;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--dt-deep-charcoal);
+      background: var(--dt-clinical-white);
+      border: 1px solid var(--dt-soft-gray);
+      border-radius: var(--dt-radius);
+      padding: 12px 14px;
+      width: 100%;
+      transition: border-color var(--dt-transition), box-shadow var(--dt-transition);
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: var(--dt-slate-gray);
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--dt-signal-teal);
+      box-shadow: 0 0 0 3px rgba(27,153,139,0.15);
+    }
+    .form-field textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .honeypot {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .submit-btn {
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+      background: var(--dt-med-blue);
+      color: #fff;
+      border: 1px solid var(--dt-med-blue);
+      padding: 12px 28px;
+      min-height: 44px;
+      cursor: pointer;
+      border-radius: var(--dt-radius);
+      transition: background-color var(--dt-transition), border-color var(--dt-transition), transform var(--dt-transition), box-shadow var(--dt-transition);
+      justify-self: start;
+    }
+    .submit-btn:hover {
+      background: #0d2d7a;
+      border-color: #0d2d7a;
+      transform: translateY(-1px);
+      box-shadow: var(--dt-shadow-md);
+    }
+    .submit-btn:focus-visible {
+      outline: 2px solid var(--dt-signal-teal);
+      outline-offset: 2px;
+    }
+    .submit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .form-status {
+      font-size: 14px;
+      color: var(--dt-slate-gray);
+      margin: 0;
+      min-height: 1.4em;
+    }
+    .form-status--success { color: #06D6A0; }
+    .form-status--error   { color: var(--dt-alert-red); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--dt-deep-charcoal);
+      padding: 48px 24px 28px;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-inner { max-width: 1120px; margin: 0 auto; }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .footer-brand .logo { color: #fff; font-size: 18px; display: inline-block; margin-bottom: 10px; }
+    .footer-brand .logo .med { color: var(--dt-signal-teal); }
+    .footer-brand p { font-size: 13px; line-height: 1.6; max-width: 300px; }
+    .footer-links { display: flex; gap: 48px; flex-wrap: wrap; }
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 14px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color var(--dt-transition);
+    }
+    .footer-col a:hover { color: var(--dt-signal-teal); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-legal a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    .footer-legal a:hover { color: var(--dt-signal-teal); }
+
+    /* ── FADE-IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.emergency {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 32px 28px;
+      }
+      .emergency-phone { justify-content: center; }
+      .steps-row { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .nav-right .hide-mobile { display: none; }
+      .hero { padding: 60px 24px 40px; }
+      .trust-inner { gap: 24px; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .phone-number { font-size: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .fade-in { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- EMERGENCY BANNER -->
+  <div class="emergency-banner" role="alert">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    If you are experiencing a medical emergency, call
+    <a href="tel:+1XXXXXXXXXX">xxx.xxx.xxxx</a> immediately.
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="#" class="logo" aria-label="DialTone.Med home">DialTone<span class="med">.Med</span></a>
+      <div class="nav-right">
+        <a href="#services" class="hide-mobile">Services</a>
+        <a href="#how" class="hide-mobile">How It Works</a>
+        <a href="#contact" class="hide-mobile">Contact</a>
+        <a href="#" class="btn btn-primary">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner fade-in">
+      <h1>Your Healthcare, <em>Simplified</em></h1>
+      <p>Schedule appointments, view your visit history, and manage billing — all in one secure place. DialTone.Med puts you in control of your care.</p>
+      <a href="#services" class="btn btn-teal btn-lg">Get Started</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-grid">
+
+      <!-- Appointments -->
+      <a href="#" class="service-card fade-in">
+        <div class="service-card-header">
+          <div class="service-icon teal">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <h3>Appointments</h3>
+            <span class="subtitle">Manage your visits</span>
+          </div>
+        </div>
+        <p>Book a new appointment, reschedule an existing visit, or cancel — all online, anytime. Choose your provider, pick a time that works, and get instant confirmation.</p>
+        <div class="service-actions">
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Schedule
+          </span>
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            Reschedule
+          </span>
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Cancel
+          </span>
+        </div>
+      </a>
+
+      <!-- Last Appointment -->
+      <a href="#" class="service-card fade-in">
+        <div class="service-card-header">
+          <div class="service-icon blue">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <h3>Last Appointment</h3>
+            <span class="subtitle">Your recent visit</span>
+          </div>
+        </div>
+        <p>Review details from your most recent visit — including date, provider, visit summary, and any follow-up actions or next steps recommended by your care team.</p>
+        <div class="service-actions">
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View Details
+          </span>
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Visit Summary
+          </span>
+        </div>
+      </a>
+
+      <!-- Billing -->
+      <a href="#" class="service-card fade-in">
+        <div class="service-card-header">
+          <div class="service-icon violet">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <div>
+            <h3>Billing</h3>
+            <span class="subtitle">Payments &amp; statements</span>
+          </div>
+        </div>
+        <p>View your balance, review past statements, make a payment, or set up a payment plan. All transactions are encrypted and processed securely.</p>
+        <div class="service-actions">
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Pay Now
+          </span>
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Statements
+          </span>
+          <span class="action-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Payment Plan
+          </span>
+        </div>
+      </a>
+
+      <!-- Emergency -->
+      <div class="service-card emergency fade-in">
+        <div class="service-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="emergency-content">
+          <h3>Medical Emergency?</h3>
+          <p>If you or someone nearby is experiencing a life-threatening emergency, do not use this portal. Call the number below immediately for urgent assistance.</p>
+        </div>
+        <div class="emergency-phone">
+          <div class="pulse-dot" aria-hidden="true"></div>
+          <div>
+            <div class="phone-label">Emergency Line</div>
+            <a href="tel:+1XXXXXXXXXX" class="phone-number" aria-label="Call emergency line">xxx.xxx.xxxx</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span>HIPAA Compliant</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <span>256-bit Encryption</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <span>SOC 2 Type II</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <span>24/7 Availability</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="section-header fade-in">
+      <div class="section-label">How It Works</div>
+      <h2>Three Steps to Better Care Access</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step fade-in">
+        <div class="step-num">1</div>
+        <h3>Sign In Securely</h3>
+        <p>Log in with your patient credentials. Your data is protected with enterprise-grade encryption.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">2</div>
+        <h3>Choose a Service</h3>
+        <p>Book an appointment, review your last visit, or manage your billing — all from one dashboard.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">3</div>
+        <h3>Done in Seconds</h3>
+        <p>Get instant confirmations, clear summaries, and secure receipts — no waiting, no phone trees.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="cta-inner fade-in">
+      <h2>Take Control of Your Healthcare</h2>
+      <p>Sign up today and manage your appointments, records, and billing from anywhere — on your terms.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-white btn-lg">Create Account</a>
+        <a href="#" class="btn btn-outline-white btn-lg">Sign In</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact" aria-labelledby="contactTitle">
+    <div class="contact-inner">
+      <div class="section-header fade-in">
+        <div class="section-label">Get In Touch</div>
+        <h2 id="contactTitle">Contact Us</h2>
+        <p>Questions about DialTone.Med, partnership inquiries, or feedback on your experience? Send a note and we'll get back to you.</p>
+      </div>
+
+      <div class="contact-card fade-in">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-field">
+            <label for="nameField">Name</label>
+            <input id="nameField" name="name" type="text" placeholder="Your name" required autocomplete="name" maxlength="120">
+          </div>
+
+          <div class="form-field">
+            <label for="emailField">Email</label>
+            <input id="emailField" name="email" type="email" placeholder="you@example.com" required autocomplete="email" maxlength="254">
+          </div>
+
+          <div class="form-field">
+            <label for="messageField">Message</label>
+            <textarea id="messageField" name="message" placeholder="How can we help?" required maxlength="5000"></textarea>
+          </div>
+
+          <div class="honeypot" aria-hidden="true">
+            <label for="websiteField">Leave this field empty</label>
+            <input id="websiteField" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo">DialTone<span class="med">.Med</span></a>
+          <p>Clear signals in critical moments. Secure, intelligent healthcare communication built for patients and providers.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Services</h4>
+            <a href="#">Appointments</a>
+            <a href="#">Last Visit</a>
+            <a href="#">Billing</a>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <a href="#">Help Center</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#">Accessibility</a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">HIPAA Notice</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 DialTone.Med. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll shadow
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // Fade-in on scroll
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.15, rootMargin: '0px 0px -40px 0px' };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    // Contact form — submits to /api/contact (Cloudflare Worker -> Resend).
+    // Submit logic mirrors the sibling DialTone marketing site so behavior
+    // (validation, honeypot, status messaging) stays consistent across
+    // the DialTone family of sites.
+    (() => {
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+      if (!form || !status || !submitBtn) return;
+
+      const setStatus = (msg, kind) => {
+        status.textContent = msg;
+        status.classList.remove('form-status--success', 'form-status--error');
+        if (kind) status.classList.add(`form-status--${kind}`);
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = new FormData(form);
+        const name = (data.get('name') || '').toString().trim();
+        const email = (data.get('email') || '').toString().trim();
+        const message = (data.get('message') || '').toString().trim();
+        const website = (data.get('website') || '').toString().trim();
+
+        if (!name || !email || !message) {
+          setStatus('Please fill out all fields.', 'error');
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setStatus('Please enter a valid email address.', 'error');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        setStatus('Sending your message...', 'success');
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, message, website })
+          });
+
+          const payload = await response.json().catch(() => ({}));
+
+          if (!response.ok || !payload.ok) {
+            throw new Error(payload.error || 'Unable to send your message right now.');
+          }
+
+          setStatus("Thanks! We'll get back to you shortly.", 'success');
+          form.reset();
+        } catch (err) {
+          setStatus(err.message || 'Unable to send your message right now.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
