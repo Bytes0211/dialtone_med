@@ -1,0 +1,44 @@
+# Developer Journal
+
+## 2026-04-28
+- Added a new on-brand THE PROBLEM section to the marketing page.
+- Implemented the exact required headline copy: "Missing calls is bigger problem than you think." and "Frustrated patients and lost revenue".
+- Added two data tables (Medical Practices and Dental Practices) with all metrics and source links from docs/the_problem.md.
+- Styled the section to match existing DialTone.Med branding by reusing current tokens, spacing, shadows, and typography patterns from the page.
+- Added responsive behavior for the section and tables so content remains readable on mobile (single-column cards + horizontal table scroll when needed).
+- Performed a follow-up brand consistency pass across the page to preserve independent in-progress edits while improving cohesion.
+- Replaced inline hero/list styles with reusable branded CSS classes (`hero-copy`, `hero-copy-highlight`, `hero-note`, `service-list`).
+- Added a top nav anchor for the new Problem section (`#problem`) to match the existing section navigation pattern.
+- Applied minor copy polish for consistency and readability (for example: "Reschedule an appointment", sentence-case patient-facing copy).
+- Reconfigured the Problem frame from two side-by-side tables to a two-panel layout:
+	left card with key points and right card with tabbed data views.
+- Implemented an accessible tab interface for the right panel (Medical Practice / Dental Practice), including click and arrow-key navigation.
+- Converted detailed table rows into concise, scannable data-point cards per tab while preserving the core statistics.
+- Updated the left-side Key Points verbiage to the latest requested messaging and structure.
+- Added explicit citation lines for `prettygoodai.com` and `vigma.ai` under the corresponding key points.
+- Switched source link styling to grey for both left-side citations and right-panel source links to reduce visual weight.
+- Removed the hero promotional note ("No credit card. No commitment — First 50 providers get 30 days free.") per latest page-copy direction.
+- Added a new Services card for "Prescription Refills" with the subtitle "Provider approved workflows" using the existing service-card pattern.
+- Added a med-specific Supabase schema file at `developer/supabase/01_waitlist_schema.sql` and aligned the worker insert shape with the sibling DialTone schema (`email`, `name`, `restaurant_name`, `campaign`, `comment`, `created_at`) while keeping the campaign value specific to DialTone.Med.
+- Added `company_name` to the med waitlist schema and updated the worker to write both `company_name` (canonical for DialTone.Med) and `restaurant_name` (legacy compatibility), with backfill logic so existing rows stay consistent.
+- Added a required Company field under Name in the contact form and wired it through the frontend submit handler, Worker validation, Supabase persistence, and Resend email subject/body.
+- Rewrote the three "How It Works" cards to be provider-facing DialTone.Med actions: connect the practice line, define front-desk workflows, and let DialTone handle routine calls.
+- Removed the mid-page blue CTA banner ("Take Control of Your Healthcare") so the page now flows directly from the How It Works section into Contact.
+- Rebranded `public/privacy.html` and `public/terms.html` from the old DialTone.Menu restaurant legal pages to the DialTone.Med visual system and healthcare-oriented placeholder legal copy, including updated metadata, typography, colors, product naming, and contact address.
+- Updated footer legal links in `public/index.html` so Privacy and Terms now point to `/privacy.html` and `/terms.html` instead of dummy `#` targets.
+- Rebranded the newly added `public/404.html` to the DialTone.Med visual language and verified 404 routing remains correctly configured through `wrangler.toml` (`not_found_handling = "404-page"`).
+- Created `public/hippa.html` from the HIPAA policy PDF content with DialTone.Med legal-page styling, linked the main footer "HIPAA Notice" entry to `/hippa.html`, and added `/hippa.html` to sitemap generation in `worker.js`.
+- Updated `worker.js` robots/sitemap handlers so `robots.txt` now always emits a sitemap URL based on the current request origin and `sitemap.xml` lists only existing public pages (`/`, `/privacy.html`, `/terms.html`, `/hippa.html`) instead of the stale `/pricing.html` route.
+- Added a `preflight` job to `.github/workflows/deploy.yml` and gated deploy on it, including a `node --check worker.js` syntax check plus basic static-file smoke checks before Cloudflare deployment.
+- Removed click behavior from the services cards by converting them from anchor tags to non-interactive article containers and removing pointer-cursor styling.
+- Standardized `waitlist_submissions.campaign` to `Med Launch` in the schema migration (create default, backfill normalization, and altered default) to align with the worker insert value and avoid mixed casing/tags from earlier defaults.
+- Standardized favicon cache-busting across pages by updating `public/index.html` to use `/images/favicon.svg?v=20260427`, matching the legal and utility pages.
+- Added core homepage SEO/social metadata in `public/index.html`: meta description, robots directive, canonical URL, Open Graph tags, and Twitter card tags.
+- Updated the hero primary CTA label from "Join Our Waitlist" to "Contact Us" to match current page intent.
+- Updated the trust-bar compliance copy by replacing "SOC 2 Type II" with "HIPAA-aligned architecture, SOC 2 Type 2 roadmap in place".
+- Added a new trust-bar badge for "Support Team" beside the existing "24/7 Availability" item.
+- Updated the problem-section headline copy to "Missing calls is a bigger problem..." per latest messaging direction.
+- Updated `worker.js` Supabase insert logic to retry without `company_name` when that column is unavailable, so contact submissions still succeed on older table versions while schema rollout catches up.
+- Added `developer/deployment.md` as a DialTone.Med-specific deployment runbook modeled after the sibling project and updated for this repo's actual workflow, preflight checks, secrets, schema script, and post-deploy verification.
+- Removed the footer's Services/Support/Legal link columns from `public/index.html`, leaving the simplified brand + bottom legal footer only.
+- Added a bottom footer legal link to `/hippa.html` and placed it before Privacy and Terms.

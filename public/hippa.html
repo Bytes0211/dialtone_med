@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HIPAA Compliance Policy — DialTone.Med</title>
+  <meta name="description" content="HIPAA Compliance Policy for ByteStreams LLC (d/b/a DialTone.Med)." />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=20260427" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --navy: #0A2463;
+      --teal: #1B998B;
+      --green: #2EC4B6;
+      --cream: #FAFBFC;
+      --warm: #EEF7F6;
+      --text: #1A1F36;
+      --muted: #6B7C93;
+      --white: #FFFFFF;
+      --r: 12px;
+      --line: rgba(10, 36, 99, 0.12);
+
+      --font-display: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+      --font-body: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+      --font-mono: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+
+      --max-content: 900px;
+      --max-nav: 1240px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--max-nav);
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--navy);
+      text-decoration: none;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .logo .med { color: var(--teal); font-weight: 500; }
+    .nav-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+    .nav-home {
+      font-size: 0.85rem;
+      color: var(--navy);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+    .nav-home:hover { opacity: 1; }
+
+    main { flex: 1; }
+    .container {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 2.9rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      margin: 0 0 0.5rem;
+    }
+
+    .doc-meta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+    }
+
+    .summary-box {
+      background: var(--warm);
+      border-left: 3px solid var(--teal);
+      padding: 1.2rem 1.4rem;
+      margin: 1.75rem 0 2rem;
+      font-size: 0.98rem;
+    }
+    .summary-box-label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.45rem;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin: 2.4rem 0 0.9rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+    h2 .num {
+      font-size: 0.8em;
+      color: var(--teal);
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 1.03rem;
+      color: var(--navy);
+      margin: 1.3rem 0 0.45rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+
+    ul {
+      margin: 0 0 1rem;
+      padding-left: 1.2rem;
+    }
+    ul li {
+      margin-bottom: 0.45rem;
+      color: var(--text);
+    }
+    ul li::marker {
+      color: var(--teal);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8rem 0 1.3rem;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 0.62rem 0.7rem;
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+    th {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: rgba(10, 36, 99, 0.03);
+      font-weight: 600;
+    }
+
+    .ack-box {
+      border: 1px dashed rgba(10, 36, 99, 0.28);
+      border-radius: var(--r);
+      padding: 1rem;
+      background: #fff;
+    }
+    .sig-line {
+      border-bottom: 1px solid var(--line);
+      height: 2rem;
+      margin: 0.4rem 0 1rem;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    footer {
+      background: var(--navy);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: var(--max-nav);
+      margin: 0 auto;
+      padding: 1.8rem 1.5rem;
+      font-size: 0.74rem;
+      letter-spacing: 0.04em;
+      color: rgba(245, 239, 230, 0.65);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .footer-inner a {
+      color: rgba(245, 239, 230, 0.88);
+      text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="logo" href="/" aria-label="DialTone.Med home">DialTone<span class="med">.Med</span></a>
+      <span class="nav-meta">HIPAA</span>
+      <a class="nav-home" href="/">&larr; Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <p class="eyebrow">Compliance</p>
+      <h1>HIPAA Compliance Policy</h1>
+      <p class="doc-meta">ByteStreams LLC (d/b/a DialTone.Med) · Effective Date: April 28, 2026 · Version 1.0</p>
+
+      <div class="summary-box">
+        <div class="summary-box-label">Confidential policy summary</div>
+        <p style="margin: 0;">This page reflects the HIPAA Compliance Policy source document in <a href="/docs/DialTone.Med-HIPAA-Compliance-Policy.pdf">DialTone.Med-HIPAA-Compliance-Policy.pdf</a> and is published as an operational reference copy for the DialTone.Med platform.</p>
+      </div>
+
+      <h2><span class="num">I</span> Organization-Specific Information</h2>
+      <h3>Organization Details</h3>
+      <table>
+        <tr><th>Field</th><th>Detail</th></tr>
+        <tr><td>Organization Name</td><td>ByteStreams LLC (d/b/a DialTone.Med)</td></tr>
+        <tr><td>Physical Address</td><td>100 Powell Place #1473, Nashville, TN 37204</td></tr>
+        <tr><td>Mailing Address</td><td>100 Powell Place #1473, Nashville, TN 37204</td></tr>
+        <tr><td>Main Phone</td><td>(629) 250-1143</td></tr>
+        <tr><td>Fax</td><td>N/A</td></tr>
+        <tr><td>Email</td><td>scotton@bytestreams.ai</td></tr>
+      </table>
+
+      <h3>Compliance Officer</h3>
+      <table>
+        <tr><th>Field</th><th>Detail</th></tr>
+        <tr><td>Name</td><td>Steven Cotton</td></tr>
+        <tr><td>Title</td><td>Owner / HIPAA Compliance Officer</td></tr>
+        <tr><td>Phone</td><td>(629) 250-1143</td></tr>
+        <tr><td>Email</td><td>scotton@bytestreams.ai</td></tr>
+      </table>
+
+      <p>As a sole-person LLC, the owner currently serves as the HIPAA Compliance Team. Additional workforce roles will be designated as the organization grows.</p>
+
+      <h3>Technical Infrastructure</h3>
+      <ul>
+        <li>Cloud-hosted AI/ML speech recognition and natural language processing engines</li>
+        <li>VoIP/SIP telephony infrastructure</li>
+        <li>AES-256 encrypted databases for call data and processed PHI</li>
+        <li>TLS 1.2+ encryption for all data transmission</li>
+        <li>API integrations with practice management and EHR systems</li>
+        <li>Role-based access controls, MFA, and automated audit logging</li>
+      </ul>
+
+      <h3>Business Associates, Training, and Review</h3>
+      <ul>
+        <li>ByteStreams LLC operates as a Business Associate to Covered Entity healthcare clients and executes BAAs before PHI processing.</li>
+        <li>BAAs are maintained with subcontractors and vendors that may process PHI.</li>
+        <li>Annual HIPAA training is completed and documented; onboarding training is required for future workforce members within 30 days.</li>
+        <li>Policy reviews occur at least annually, with quarterly log review and annual risk assessment.</li>
+      </ul>
+
+      <h2><span class="num">II</span> Policy Statement</h2>
+      <h3>Purpose</h3>
+      <p>This policy defines how ByteStreams LLC complies with HIPAA and HITECH requirements to protect PHI created, received, maintained, or transmitted through the DialTone.Med platform.</p>
+
+      <h3>Scope</h3>
+      <p>This policy applies to all workforce members, contractors, subcontractors, and business associates handling PHI or ePHI through DialTone.Med systems and processes, including verbal PHI, ePHI, and PHI-derived data retaining identifiers.</p>
+
+      <h2><span class="num">III</span> Definitions</h2>
+      <ul>
+        <li><strong>PHI:</strong> Individually identifiable health information in any form, including names, phone numbers, appointment details, DOB, insurance details, and visit reasons captured through phone interactions.</li>
+        <li><strong>ePHI:</strong> PHI stored or transmitted electronically, including call recordings, transcriptions, database records, API transmissions, and logs containing identifiers.</li>
+        <li><strong>Covered Entity:</strong> Healthcare providers and organizations subject to HIPAA; DialTone.Med client practices are Covered Entities.</li>
+        <li><strong>Business Associate:</strong> A person/entity performing services involving PHI on behalf of a Covered Entity; ByteStreams LLC operates in this role.</li>
+        <li><strong>Minimum Necessary:</strong> Limit uses/disclosures of PHI to only what is reasonably required for the intended purpose.</li>
+        <li><strong>Workforce Member:</strong> Any person under organizational control performing work, paid or unpaid.</li>
+        <li><strong>Security Incident:</strong> Attempted/successful unauthorized access, use, disclosure, modification, destruction, or interference involving information systems.</li>
+        <li><strong>Breach:</strong> Impermissible access/use/disclosure of PHI presumed to be a breach unless low-probability compromise is demonstrated under the four-factor test in 45 CFR 164.402.</li>
+      </ul>
+
+      <h2><span class="num">IV</span> Roles and Responsibilities</h2>
+      <h3>HIPAA Compliance Officer</h3>
+      <ul>
+        <li>Oversee HIPAA Privacy, Security, Breach Notification, and Enforcement compliance</li>
+        <li>Maintain policies/procedures and monitor regulatory updates</li>
+        <li>Conduct/document risk assessments, audits, and compliance records</li>
+        <li>Manage breach detection, investigation, response, and required notifications</li>
+        <li>Approve BAAs and coordinate HIPAA matters with legal counsel as needed</li>
+      </ul>
+
+      <h3>IT / Technical Operations</h3>
+      <ul>
+        <li>Implement encryption, access controls, and audit logging</li>
+        <li>Monitor alerts/logs and maintain secure system configurations</li>
+        <li>Manage vulnerability assessment, incident response, patching, backup, DR, and business continuity</li>
+        <li>Maintain secure software development practices for the DialTone.Med platform</li>
+      </ul>
+
+      <h3>All Workforce Members and Contractors</h3>
+      <ul>
+        <li>Comply with HIPAA policies and complete required training</li>
+        <li>Report suspected incidents/breaches immediately</li>
+        <li>Access only minimum necessary PHI</li>
+        <li>Protect credentials, secure devices, and cooperate with audits</li>
+      </ul>
+
+      <h2><span class="num">V</span> Privacy Procedures</h2>
+      <h3>Minimum Necessary Standard</h3>
+      <p>DialTone.Med workflows are designed to collect and process only PHI needed for the requested function. Access to PHI is role-based and reviewed quarterly.</p>
+
+      <h3>Authorization</h3>
+      <p>Any use/disclosure not permitted by HIPAA Privacy Rule requires valid written authorization including PHI scope, authorized discloser/recipient, purpose, expiration, signature/date, and revocation rights.</p>
+
+      <h3>Patient Rights Support</h3>
+      <ul>
+        <li>Right of Access</li>
+        <li>Right to Amendment</li>
+        <li>Right to Restriction</li>
+        <li>Right to Confidential Communications</li>
+        <li>Right to Accounting of Disclosures</li>
+        <li>Right to File Complaints without retaliation</li>
+      </ul>
+
+      <h2><span class="num">VI</span> Security Procedures</h2>
+      <h3>Administrative Safeguards</h3>
+      <ul>
+        <li>Annual risk analysis and risk management plan updates</li>
+        <li>Role-based and least-privilege access management</li>
+        <li>Incident handling with containment, investigation, remediation, and post-incident review</li>
+        <li>Contingency planning (daily encrypted backups, DR, emergency operations, annual testing)</li>
+        <li>Annual security evaluation and documented control improvements</li>
+      </ul>
+
+      <h3>Physical Safeguards</h3>
+      <ul>
+        <li>Restricted facility access and cloud data center physical controls</li>
+        <li>Workstation protections (auto-lock, full-disk encryption, secured remote access)</li>
+        <li>Device/media disposal and sanitization procedures with accountability logging</li>
+      </ul>
+
+      <h3>Technical Safeguards</h3>
+      <ul>
+        <li>Unique user IDs, MFA, automatic logoff, and emergency access procedures</li>
+        <li>AES-256 at-rest encryption and TLS 1.2+ in-transit encryption</li>
+        <li>Comprehensive audit logging retained for at least six years</li>
+        <li>Integrity controls (checksums/versioning/alerts)</li>
+        <li>Transmission protections including encrypted API and telephony channels</li>
+      </ul>
+
+      <h2><span class="num">VII</span> Training and Awareness</h2>
+      <ul>
+        <li>Initial HIPAA training within 30 days and before PHI system access</li>
+        <li>Annual refresher training and event-driven supplemental training</li>
+        <li>Training records retained for minimum six years</li>
+        <li>Topics include Privacy Rule, Security Rule, incident reporting, sanctions, and role-specific procedures</li>
+      </ul>
+
+      <h2><span class="num">VIII</span> Breach Notification</h2>
+      <ul>
+        <li>Suspected/confirmed breaches must be reported immediately and within 24 hours to the Compliance Officer</li>
+        <li>Risk assessment uses four HIPAA factors under 45 CFR 164.402</li>
+        <li>Individual notices: without unreasonable delay, no later than 60 days</li>
+        <li>HHS notices: 500+ individuals within 60 days; fewer than 500 annually within 60 days of year-end</li>
+        <li>Media notices: required for breaches affecting 500+ residents of one jurisdiction</li>
+        <li>Covered Entity notices: as Business Associate, notify affected clients without unreasonable delay and within 30 days</li>
+        <li>Breach documentation retained for minimum six years with mitigation/corrective action records</li>
+      </ul>
+
+      <h2><span class="num">IX</span> Sanctions</h2>
+      <p>Violations may result in sanctions up to and including contract termination and referral for prosecution when warranted. Sanctions are documented and proportional to severity, intent, harm, training history, and prior violations.</p>
+      <p>Good-faith reporting is mandatory and protected under a strict non-retaliation policy.</p>
+
+      <h2><span class="num">X</span> Documentation and Retention</h2>
+      <p>HIPAA-related documentation is maintained in written electronic form and retained for at least six years from creation or last effective date, whichever is later.</p>
+      <table>
+        <tr><th>Document Type</th><th>Retention</th></tr>
+        <tr><td>HIPAA Policies and Procedures</td><td>Six years from date last in effect</td></tr>
+        <tr><td>Risk Assessments, Training Records, Audit Logs</td><td>Six years from date of creation</td></tr>
+        <tr><td>Business Associate Agreements</td><td>Six years from date last in effect</td></tr>
+        <tr><td>Breach Investigations, Incident and Sanction Records</td><td>Six years from date of creation</td></tr>
+        <tr><td>Authorizations/Consents and Complaints</td><td>Six years from applicable date</td></tr>
+      </table>
+
+      <h2><span class="num">XI</span> Assumptions</h2>
+      <ul>
+        <li>ByteStreams LLC is committed to HIPAA/HITECH and applicable Omnibus Rule obligations.</li>
+        <li>State laws more stringent than HIPAA are followed where applicable.</li>
+        <li>Training, risk management, and incident response are ongoing operational requirements.</li>
+        <li>BAAs are required with all relevant subcontractors and business associates.</li>
+        <li>Continuous privacy/security improvement and complete compliance documentation are core requirements.</li>
+        <li>No retaliation is permitted for good-faith compliance reporting.</li>
+      </ul>
+
+      <h2><span class="num">XII</span> Acknowledgment</h2>
+      <div class="ack-box">
+        <p>I acknowledge that I have received, read, and understand the ByteStreams LLC HIPAA Compliance Policy and agree to comply with all applicable policies and procedures. I understand violations may result in disciplinary action and potential civil and/or criminal penalties under applicable law.</p>
+
+        <p><strong>Employee/Contractor Name (Printed)</strong></p>
+        <div class="sig-line"></div>
+
+        <p><strong>Signature</strong></p>
+        <div class="sig-line"></div>
+
+        <p><strong>Date</strong></p>
+        <div class="sig-line"></div>
+
+        <p><strong>Witness Name / Signature / Date</strong></p>
+        <div class="sig-line"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 DialTone.Med · ByteStreams LLC</span>
+      <span class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

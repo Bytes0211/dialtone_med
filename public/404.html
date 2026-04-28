@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Not Found — DialTone.Med</title>
+  <meta name="description" content="The page you requested could not be found on DialTone.Med." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=20260427" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --dt-med-blue: #0A2463;
+      --dt-signal-teal: #1B998B;
+      --dt-pulse-green: #2EC4B6;
+      --dt-clinical-white: #FAFBFC;
+      --dt-soft-gray: #E8ECF1;
+      --dt-slate-gray: #6B7C93;
+      --dt-deep-charcoal: #1A1F36;
+      --dt-radius: 10px;
+      --dt-shadow-md: 0 8px 24px rgba(10, 36, 99, 0.12);
+
+      --font-main: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+
+      --max-content: 820px;
+      --max-nav: 1120px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--dt-clinical-white);
+      color: var(--dt-deep-charcoal);
+      font-family: var(--font-main);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main { flex: 1; }
+
+    .nav {
+      border-bottom: 1px solid var(--dt-soft-gray);
+      background: rgba(250, 251, 252, 0.95);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner {
+      max-width: var(--max-nav);
+      margin: 0 auto;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--dt-med-blue);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .logo .med { color: var(--dt-signal-teal); font-weight: 500; }
+    .nav-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-meta {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--dt-slate-gray);
+      font-weight: 600;
+    }
+    .nav-link {
+      font-size: 0.85rem;
+      color: var(--dt-med-blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 5rem;
+    }
+    .eyebrow {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--dt-signal-teal);
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+    .code {
+      font-size: clamp(4.5rem, 14vw, 9rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      color: var(--dt-med-blue);
+      margin: 0 0 1rem;
+    }
+    .code span {
+      color: var(--dt-signal-teal);
+    }
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--dt-med-blue);
+      margin: 0 0 1rem;
+      max-width: 640px;
+    }
+    .lede {
+      font-size: 1.03rem;
+      color: var(--dt-slate-gray);
+      margin: 0 0 2.25rem;
+      max-width: 620px;
+    }
+
+    .actions {
+      display: inline-flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.2rem;
+      border-radius: var(--dt-radius);
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+    .btn-primary {
+      background: var(--dt-med-blue);
+      color: #fff;
+      box-shadow: var(--dt-shadow-md);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: #0d2f84;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--dt-med-blue);
+      border-color: var(--dt-soft-gray);
+    }
+    .btn-secondary:hover {
+      background: var(--dt-clinical-white);
+      border-color: var(--dt-signal-teal);
+      color: var(--dt-signal-teal);
+    }
+
+    footer {
+      background: var(--dt-med-blue);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: var(--max-nav);
+      margin: 0 auto;
+      padding: 1.6rem 1.5rem;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+    .footer-inner a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding-top: 3.5rem;
+      }
+      .actions {
+        width: 100%;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="logo" href="/" aria-label="DialTone.Med home">DialTone<span class="med">.Med</span></a>
+      <span class="nav-right">
+        <span class="nav-meta">Error 404</span>
+        <a class="nav-link" href="/">Back home</a>
+      </span>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <p class="eyebrow">Page not found</p>
+      <div class="code">4<span>0</span>4</div>
+      <h1>We could not find that page.</h1>
+      <p class="lede">The link may be outdated or the URL may have a typo. Use one of the links below to get back to DialTone.Med.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/">Go to homepage</a>
+        <a class="btn btn-secondary" href="/privacy.html">Privacy policy</a>
+        <a class="btn btn-secondary" href="/terms.html">Terms of service</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 DialTone.Med · ByteStreams LLC</span>
+      <span class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

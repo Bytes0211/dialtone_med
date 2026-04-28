@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms &amp; Conditions — DialTone.Med</title>
+  <meta name="description" content="Terms and conditions for DialTone.Med — AI phone support for healthcare practices." />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=20260427" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --navy: #0A2463;
+      --teal: #1B998B;
+      --green: #2EC4B6;
+      --violet: #7B61FF;
+      --cream: #FAFBFC;
+      --warm: #EEF7F6;
+      --text: #1A1F36;
+      --muted: #6B7C93;
+      --white: #FFFFFF;
+      --r: 12px;
+      --line: rgba(10, 36, 99, 0.12);
+      --line-soft: rgba(10, 36, 99, 0.06);
+
+      --font-display: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+      --font-body: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+      --font-mono: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+
+      --max-content: 820px;
+      --max-nav: 1240px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--max-nav);
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--navy);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .logo-bullet {
+      display: none;
+    }
+    .logo .med { color: var(--teal); font-weight: 500; }
+    .logo-tag {
+      display: none;
+    }
+    .nav-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+    .nav-home {
+      font-size: 0.85rem;
+      color: var(--navy);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+    .nav-home:hover { opacity: 1; }
+
+    main { flex: 1; }
+    .container {
+      max-width: var(--max-content);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--teal);
+      margin: 0 0 1rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      margin: 0 0 0.5rem;
+    }
+
+    .doc-meta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 0 0 2.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin: 2.75rem 0 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    h2 .num {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      color: var(--teal);
+      font-size: 0.8em;
+      letter-spacing: 0;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--navy);
+      margin: 0 0 1rem;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      margin: 0 0 1rem;
+    }
+    ul li {
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    ul li::marker {
+      color: var(--teal);
+    }
+
+    strong { font-weight: 600; }
+
+    .summary-box {
+      background: var(--warm);
+      border-left: 3px solid var(--teal);
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+      font-size: 0.98rem;
+    }
+    .summary-box-label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 150ms ease-out;
+    }
+    a:hover { color: var(--navy); }
+
+    footer {
+      background: var(--navy);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: var(--max-nav);
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: rgba(245, 239, 230, 0.55);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-inner a {
+      color: rgba(245, 239, 230, 0.8);
+      text-decoration: none;
+      transition: color 150ms ease-out;
+    }
+    .footer-inner a:hover { color: var(--green); }
+    .footer-links { display: flex; gap: 1.25rem; }
+    .footer-brand { color: rgba(245, 239, 230, 0.55); }
+    .footer-brand .med { color: var(--green); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="logo" href="/" aria-label="DialTone.Med home">DialTone<span class="med">.Med</span></a>
+      <span class="nav-meta">Terms</span>
+      <a class="nav-home" href="/">← Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <p class="eyebrow">Legal</p>
+      <h1>Terms &amp; Conditions</h1>
+      <p class="doc-meta">Last updated · April 20, 2026</p>
+
+      <div class="summary-box">
+        <div class="summary-box-label">Draft — pre-launch placeholder</div>
+        <p style="margin: 0;">This is a working version of DialTone.Med's terms while we finalize the service for launch. A lawyer-reviewed version will replace this page before the first paying customer goes live. If you have questions about any term here, email <a href="mailto:hello@bytestreams.ai">hello@bytestreams.ai</a>.</p>
+      </div>
+
+      <p>These terms govern your use of DialTone.Med, an AI-powered phone assistant for healthcare practices. By using DialTone.Med, whether as a practice representative who subscribes to the service or as a caller who interacts with a participating practice through it, you agree to these terms.</p>
+
+      <h2><span class="num">01</span> The Service</h2>
+      <p>DialTone.Med answers phone calls on behalf of participating healthcare practices and helps callers with tasks such as appointment scheduling, billing questions, prescription refill requests, insurance verification, and message taking. The service relies on third-party providers for voice, telephony, messaging, email delivery, and hosting. DialTone.Med does not guarantee uninterrupted availability of any third-party provider.</p>
+
+      <h2><span class="num">02</span> Who these terms apply to</h2>
+      <ul>
+        <li><strong>Practices</strong> (providers, offices, or operators who sign up for the service) agree to configure accurate workflows, hours, escalation rules, and patient-facing instructions.</li>
+        <li><strong>Callers</strong> (patients, caregivers, or other people who call a DialTone.Med-enabled practice or reply to a DialTone.Med SMS) agree to provide accurate information during the interaction.</li>
+      </ul>
+
+      <h2><span class="num">03</span> Not medical advice or emergency service</h2>
+      <p>DialTone.Med is an administrative communications tool. It does not provide medical advice, diagnose conditions, prescribe treatment, or replace licensed clinical judgment. It must not be used for emergencies. If you believe you are experiencing a medical emergency, call 911 or seek immediate emergency care.</p>
+
+      <h2><span class="num">04</span> SMS messaging</h2>
+      <p>By interacting with a participating practice through DialTone.Med, you consent to receive transactional SMS messages at the phone number used for that interaction, including appointment confirmations, callback updates, intake reminders, or other operational follow-up messages. Message and data rates may apply. Message frequency varies by workflow.</p>
+      <p>You may opt out at any time by replying <strong>STOP</strong> to any message from DialTone.Med. Reply <strong>HELP</strong> for assistance. Opting out may prevent the practice from sending confirmations, reminders, or other follow-up information by text. DialTone.Med does not use SMS for third-party marketing and does not share phone numbers with third parties for their marketing.</p>
+
+      <h2><span class="num">05</span> Practice responsibility</h2>
+      <p>Each participating practice remains responsible for its own scheduling decisions, patient communications, billing outcomes, insurance workflows, regulatory compliance, and clinical operations. DialTone.Med acts only as a tool that helps capture and route information according to the configuration chosen by the practice.</p>
+
+      <h2><span class="num">06</span> Acceptable use</h2>
+      <p>You agree not to use DialTone.Med to:</p>
+      <ul>
+        <li>harass, abuse, or threaten the voice agent, participating practice staff, or other users;</li>
+        <li>submit false or misleading patient, billing, or insurance information;</li>
+        <li>probe, attack, or attempt to bypass the security of the service;</li>
+        <li>violate any applicable law or regulation.</li>
+      </ul>
+      <p>DialTone.Med and the participating practice reserve the right to refuse service or block further interaction for violations of this section.</p>
+
+      <h2><span class="num">07</span> Disclaimers</h2>
+      <p>DialTone.Med is provided on an "as is" and "as available" basis. Automated speech recognition and synthesis are imperfect, and the assistant may occasionally mishear, misspeak, or misinterpret information. Practices should review configurations and callers should verify important details with the practice when necessary.</p>
+      <p>DialTone.Med disclaims any implied warranties of merchantability, fitness for a particular purpose, and non-infringement to the fullest extent permitted by law.</p>
+
+      <h2><span class="num">08</span> Limitation of liability</h2>
+      <p>To the maximum extent permitted by law, DialTone.Med's aggregate liability to any party arising out of or related to the service is limited to the greater of (a) fees paid by the practice to DialTone.Med in the three months preceding the claim, or (b) one hundred US dollars. DialTone.Med is not liable for indirect, incidental, special, consequential, or punitive damages.</p>
+
+      <h2><span class="num">09</span> Changes to the service and these terms</h2>
+      <p>DialTone.Med may modify the service, add or remove features, adjust pricing, or update these terms from time to time. Material changes to these terms will be posted on this page with an updated "Last updated" date. Continued use of the service after a change constitutes acceptance of the updated terms.</p>
+
+      <h2><span class="num">10</span> Termination</h2>
+      <p>A participating practice may cancel its DialTone.Med subscription at any time. DialTone.Med may suspend or terminate access to the service for violations of these terms, non-payment, security issues, or legal compliance reasons. Termination does not relieve either party of obligations incurred before termination.</p>
+
+      <h2><span class="num">11</span> Governing law</h2>
+      <p>These terms are governed by the laws of the United States and the state in which DialTone is headquartered, without regard to conflict-of-law principles. Any dispute not resolved informally within a reasonable time shall be submitted to the exclusive jurisdiction of the state and federal courts located in that jurisdiction. Specific governing state will be finalized in the lawyer-reviewed version of these terms.</p>
+
+      <h2><span class="num">12</span> Contact</h2>
+      <p>Questions, complaints, or legal notices: <a href="mailto:hello@bytestreams.ai">hello@bytestreams.ai</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 <span class="footer-brand">DialTone<span class="med">.Med</span></span> · ByteStreams LLC</span>
+      <span class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

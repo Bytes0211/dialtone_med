@@ -2,6 +2,22 @@ const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8'
 };
 
+// Per-isolate in-memory rate limiter: max 5 submissions per IP per 60 seconds.
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const rateLimitMap = new Map();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now - entry.windowStart >= RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { windowStart: now, count: 1 });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_LIMIT_MAX;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -74,11 +90,7 @@ function notFoundResponse() {
 }
 
 function handleRobots(url) {
-  const host = url.hostname.toLowerCase();
-  const isByteStreamsHost = host === 'bytestreams.ai' || host === 'www.bytestreams.ai';
-  const sitemap = isByteStreamsHost
-    ? 'https://bytestreams.ai/sitemap.xml'
-    : 'https://dialtone.menu/sitemap.xml';
+  const sitemap = `${url.origin}/sitemap.xml`;
 
   const body = [
     'User-agent: *',
@@ -140,7 +152,7 @@ function handleSecurityTxt() {
 }
 
 function handleSitemap(url) {
-  const pages = ['/', '/pricing.html', '/privacy.html', '/terms.html'];
+  const pages = ['/', '/privacy.html', '/terms.html', '/hippa.html'];
   const body = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -161,6 +173,11 @@ async function handleContact(request, env) {
     return jsonResponse({ error: 'Method not allowed' }, 405);
   }
 
+  const clientIp = request.headers.get('CF-Connecting-IP') || 'unknown';
+  if (isRateLimited(clientIp)) {
+    return jsonResponse({ error: 'Too many requests. Please try again later.' }, 429);
+  }
+
   let payload;
   try {
     payload = await request.json();
@@ -169,6 +186,7 @@ async function handleContact(request, env) {
   }
 
   const name = normalizeText(payload.name, 120);
+  const company = normalizeText(payload.company, 160);
   const email = normalizeText(payload.email, 254);
   const message = normalizeText(payload.message, 5000);
   const honeypot = normalizeText(payload.website || '', 200);
@@ -177,12 +195,46 @@ async function handleContact(request, env) {
     return jsonResponse({ ok: true });
   }
 
-  if (!name || !email || !message) {
+  if (!name || !company || !email || !message) {
     return jsonResponse({ error: 'Please fill out all fields.' }, 400);
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return jsonResponse({ error: 'Please provide a valid email address.' }, 400);
+  }
+
+  // Runtime config health for DB persistence.
+  const supabaseDbKey = env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_KEY;
+  const hasSupabaseUrl = Boolean(env.SUPABASE_URL);
+  const hasSupabaseDbKey = Boolean(supabaseDbKey);
+  if (!hasSupabaseUrl || !hasSupabaseDbKey) {
+    console.log('Contact config health:', JSON.stringify({
+      hasSupabaseUrl,
+      hasSupabaseDbKey,
+      hasServiceRoleKey: Boolean(env.SUPABASE_SERVICE_ROLE_KEY),
+      hasFallbackKey: Boolean(env.SUPABASE_KEY)
+    }));
+
+    return jsonResponse({
+      error: 'Form configuration is incomplete. Please contact support.'
+    }, 503);
+  }
+
+  // Persist first so a successful response always implies a stored row.
+  try {
+    await saveToSupabase({
+      email,
+      name,
+      company,
+      comment: message,
+      supabaseUrl: env.SUPABASE_URL,
+      supabaseKey: supabaseDbKey
+    });
+  } catch (error) {
+    console.log('Supabase save error:', String(error));
+    return jsonResponse({
+      error: 'We could not save your submission. Please try again shortly.'
+    }, 502);
   }
 
   const destinationEmail = env.CONTACT_EMAIL;
@@ -203,6 +255,7 @@ async function handleContact(request, env) {
     destinationEmail,
     siteName: env.SITE_NAME,
     name,
+    company,
     email,
     message,
     apiKey: env.RESEND_API_KEY
@@ -226,7 +279,7 @@ async function handleContact(request, env) {
   return jsonResponse({ ok: true });
 }
 
-async function forwardToResend({ destinationEmail, siteName, name, email, message, apiKey }) {
+async function forwardToResend({ destinationEmail, siteName, name, company, email, message, apiKey }) {
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -247,9 +300,9 @@ async function forwardToResend({ destinationEmail, siteName, name, email, messag
       // bracketed-address syntax (whitespace and `<>` fail the anchored
       // `[^\s@]+@[^\s@]+\.[^\s@]+` pattern), so `email` is a bare address.
       reply_to: [email],
-      subject: `${siteName} Contact: ${name}`,
-      text: buildTextBody({ siteName, name, email, message }),
-      html: buildHtmlBody({ siteName, name, email, message })
+      subject: `${siteName} Contact: ${company} (${name})`,
+      text: buildTextBody({ siteName, name, company, email, message }),
+      html: buildHtmlBody({ siteName, name, company, email, message })
     })
   });
 
@@ -272,11 +325,13 @@ async function forwardToResend({ destinationEmail, siteName, name, email, messag
   };
 }
 
-function buildTextBody({ siteName, name, email, message }) {
+function buildTextBody({ siteName, name, company, email, message }) {
   return [
     `New ${siteName} contact form submission`,
     '',
-    `From: ${name} <${email}>`,
+    `Contact: ${name}`,
+    `Company: ${company}`,
+    `Email: ${email}`,
     '',
     message,
     '',
@@ -286,9 +341,10 @@ function buildTextBody({ siteName, name, email, message }) {
   ].join('\n');
 }
 
-function buildHtmlBody({ siteName, name, email, message }) {
+function buildHtmlBody({ siteName, name, company, email, message }) {
   const safeSite = escapeHtml(siteName);
   const safeName = escapeHtml(name);
+  const safeCompany = escapeHtml(company);
   const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(message);
   return [
@@ -296,7 +352,9 @@ function buildHtmlBody({ siteName, name, email, message }) {
     '<html>',
     '<body style="font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #1a1410;">',
     `<h2 style="margin: 0 0 16px 0;">New ${safeSite} contact form submission</h2>`,
-    `<p style="margin: 0 0 8px 0;"><strong>From:</strong> ${safeName} &lt;<a href="mailto:${safeEmail}" style="color: #c8391a;">${safeEmail}</a>&gt;</p>`,
+    `<p style="margin: 0 0 8px 0;"><strong>Contact:</strong> ${safeName}</p>`,
+    `<p style="margin: 0 0 8px 0;"><strong>Company:</strong> ${safeCompany}</p>`,
+    `<p style="margin: 0 0 8px 0;"><strong>Email:</strong> <a href="mailto:${safeEmail}" style="color: #c8391a;">${safeEmail}</a></p>`,
     '<hr style="border: none; border-top: 1px solid #ebe3d5; margin: 16px 0;">',
     `<div style="white-space: pre-wrap; line-height: 1.5;">${safeMessage}</div>`,
     '<hr style="border: none; border-top: 1px solid #ebe3d5; margin: 24px 0 16px 0;">',
@@ -304,6 +362,58 @@ function buildHtmlBody({ siteName, name, email, message }) {
     '</body>',
     '</html>'
   ].join('');
+}
+
+async function saveToSupabase({ email, name, company, comment, supabaseUrl, supabaseKey }) {
+  const endpoint = `${supabaseUrl}/rest/v1/waitlist_submissions`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${supabaseKey}`,
+    'apikey': supabaseKey,
+    'Prefer': 'return=representation'
+  };
+  const basePayload = {
+    email,
+    name,
+    restaurant_name: company,
+    campaign: 'Med Launch',
+    comment: comment || null,
+    created_at: new Date().toISOString()
+  };
+
+  // Prefer the canonical DialTone.Med column while preserving compatibility
+  // with older/shared tables that only have restaurant_name.
+  let response = await fetch(endpoint, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      ...basePayload,
+      company_name: company
+    })
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    const companyColumnMissing = response.status === 400 && /company_name/i.test(errorText);
+    if (companyColumnMissing) {
+      response = await fetch(endpoint, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(basePayload)
+      });
+
+      if (!response.ok) {
+        const fallbackErrorText = await response.text();
+        throw new Error(`Supabase insert failed (${response.status}): ${fallbackErrorText}`);
+      }
+
+      return await response.json();
+    }
+
+    throw new Error(`Supabase insert failed (${response.status}): ${errorText}`);
+  }
+
+  return await response.json();
 }
 
 function escapeHtml(value) {

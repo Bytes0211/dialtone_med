@@ -38,6 +38,19 @@ SITE_NAME = "DialTone.Med"
 # If the secret is missing, `/api/contact` returns a user-friendly 503
 # directing submitters to email `hello@bytestreams.ai` manually.
 
+# `/api/contact` is fail-fast for persistence: if SUPABASE_URL or DB key
+# is absent the handler returns 503 before attempting the Resend call.
+SUPABASE_URL = "https://hltmzafywzqajjzjpqva.supabase.co"
+
+# Required secrets (not stored in this file): SUPABASE_SERVICE_ROLE_KEY / SUPABASE_KEY
+# The Worker prefers SUPABASE_SERVICE_ROLE_KEY (bypasses RLS) and falls back
+# to SUPABASE_KEY (anon key). Set via:
+#
+#   npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+#   npx wrangler secret put SUPABASE_KEY
+#
+# Only one is required; service-role key is preferred for server-side inserts.
+
 # Assets live under `./public/` so wrangler's dev-server file watcher
 # doesn't observe `.wrangler/` writes (which would cause a self-
 # triggering reload loop).
